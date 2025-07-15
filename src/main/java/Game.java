@@ -17,6 +17,7 @@ public class Game {
         FlappyBird flappyBird = new FlappyBird();
         frame.add(flappyBird);
         frame.pack();
+        flappyBird.requestFocus();
         // normally, you only make the frame visible after initializing everything
         frame.setVisible(true);
     }
