@@ -7,12 +7,12 @@ import java.util.Random;
 import javax.swing.*;
 
 public class FlappyBird extends JPanel implements KeyListener {
-    int boardWidth = 360;
-    int boardHeight = 640;
+    private final int boardWidth = 360;
+    private final int boardHeight = 640;
     
     // Game state
-    boolean gameOver = false;
-    double score = 0;
+    private boolean gameOver = false;
+    private double score = 0;
     
     // Time management
     private long lastUpdateTime;
@@ -23,18 +23,18 @@ public class FlappyBird extends JPanel implements KeyListener {
     private final double JUMP_VELOCITY = -170.0;
     
     // Images and Font
-    Image backgroundImg;
-    Image birdImg;
-    Image topPipeImg;
-    Image bottomPipeImg;
+    private final Image backgroundImg;
+    private final Image birdImg;
+    private final Image topPipeImg;
+    private final Image bottomPipeImg;
     private Font gameFont;
 
     // Bird properties
-    int birdX = boardWidth/8;
-    int birdY = boardHeight/2;
-    int birdWidth = 34;
-    int birdHeight = 24;
-    double velocityY = 0;
+    private final int birdX = boardWidth/8;
+    private final int birdY = boardHeight/2;
+    private final int birdWidth = 34;
+    private final int birdHeight = 24;
+    private double velocityY = 0;
     
     class Bird {
         int x = birdX;
@@ -49,10 +49,10 @@ public class FlappyBird extends JPanel implements KeyListener {
     }
     
     // Pipes
-    int pipeX = boardWidth;
-    int pipeY = 0;
-    int pipeWidth = 64;
-    int pipeHeight = 512;
+    private final int pipeX = boardWidth;
+    private final int pipeY = 0;
+    private final int pipeWidth = 64;
+    private final int pipeHeight = 512;
     
     class Pipe {
         double x = pipeX; // Using double for smoother movement
