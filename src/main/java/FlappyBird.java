@@ -16,8 +16,7 @@ public class FlappyBird extends JPanel implements KeyListener {
     
     // Time management
     private long lastUpdateTime;
-    private boolean running = false;
-    
+
     // Game constants - now in pixels per second instead of pixels per frame
     private final double PIPE_SPEED = 240.0; // 4 pixels/frame * 60 frames = 240 pixels/second
     private final double GRAVITY = 630.0;    // Pixels per second squared
@@ -94,7 +93,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         bird = new Bird(birdImg);
         
         // Pipe spawner timer - still use Swing timer for this as it's not timing-critical
-        pipeSpawner = new Timer(1500, e -> placePipes());
+        pipeSpawner = new Timer(1200, e -> placePipes());
         
         // Start the game
         startGame();
@@ -102,8 +101,7 @@ public class FlappyBird extends JPanel implements KeyListener {
     
     private void startGame() {
         if (gameThread != null && gameThread.isAlive()) return;
-        
-        running = true;
+
         gameOver = false;
         score = 0;
         velocityY = 0;
@@ -115,7 +113,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         gameThread = new Thread(() -> {
             lastUpdateTime = System.nanoTime();
             
-            while (running) {
+            while (!gameOver) {
                 long currentTime = System.nanoTime();
                 double deltaTime = (currentTime - lastUpdateTime) / 1_000_000_000.0; // Convert to seconds
                 lastUpdateTime = currentTime;
@@ -143,7 +141,7 @@ public class FlappyBird extends JPanel implements KeyListener {
     }
     
     private void stopGame() {
-        running = false;
+        gameOver = true;
         pipeSpawner.stop();
         
         try {
@@ -271,17 +269,17 @@ public class FlappyBird extends JPanel implements KeyListener {
         }
     }
     
-    public boolean collision(Bird b, Pipe p) {
+    private boolean collision(Bird b, Pipe p) {
         return b.x < (int)p.x + p.width &&
                b.x + b.width > (int)p.x &&
                b.y < p.y + p.height &&
                b.y + b.height > p.y;
     }
     
-    @Override
+    @Override // not needed
     public void keyTyped(KeyEvent e) {
     }
-    
+
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -295,7 +293,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         }
     }
     
-    @Override
+    @Override // not needed
     public void keyReleased(KeyEvent e) {
     }
 }
